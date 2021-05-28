@@ -1,0 +1,276 @@
+1) ls -l /dev/sda{,[123]}
+
+Вывод
+brw-rw---- 1 root disk 8, 0 дек 18 11:47 /dev/sda
+brw-rw---- 1 root disk 8, 1 дек 18 11:47 /dev/sda1
+brw-rw---- 1 root disk 8, 2 дек 18 11:47 /dev/sda2
+brw-rw---- 1 root disk 8, 3 дек 18 11:47 /dev/sda3
+
+2) cat /proc/diskstats
+
+Вывод
+7       0 loop0 60 0 2126 5813 0 0 0 0 0 3092 5728 0 0 0 0
+   7       1 loop1 45 0 682 2113 0 0 0 0 0 2108 2052 0 0 0 0
+   7       2 loop2 59 0 2144 1492 0 0 0 0 0 1152 1428 0 0 0 0
+   7       3 loop3 45 0 676 1604 0 0 0 0 0 1492 1552 0 0 0 0
+   7       4 loop4 58 0 2122 1986 0 0 0 0 0 1176 1912 0 0 0 0
+   7       5 loop5 60 0 2116 2726 0 0 0 0 0 1388 2648 0 0 0 0
+   7       6 loop6 55 0 702 1596 0 0 0 0 0 1372 1536 0 0 0 0
+   7       7 loop7 45 0 676 876 0 0 0 0 0 820 840 0 0 0 0
+   8       0 sda 65327 18656 2893596 689157 28769 41441 1397586 313978 0 389516 913244 0 0 0 0
+   8       1 sda1 802 0 30240 10646 2 0 2 9 0 4200 9520 0 0 0 0
+   8       2 sda2 268 8 32418 8983 0 0 0 0 0 8152 8696 0 0 0 0
+   8       3 sda3 197 0 18320 1951 0 0 0 0 0 2064 1716 0 0 0 0
+   8       4 sda4 190 0 17872 2821 0 0 0 0 0 2896 2592 0 0 0 0
+   8       5 sda5 63446 18648 2779234 660357 28629 41441 1397584 310530 0 380784 883408 0 0 0 0
+  11       0 sr0 76 0 4244 11986 0 0 0 0 0 11028 11848 0 0 0 0
+   7       8 loop8 45 0 682 1602 0 0 0 0 0 1528 1552 0 0 0 0
+   7       9 loop9 52 0 696 1544 0 0 0 0 0 1476 1480 0 0 0 0
+   7      10 loop10 10573 0 21732 56878 0 0 0 0 0 4696 53724 0 0 0 0
+   7      11 loop11 42 0 676 1353 0 0 0 0 0 1336 1304 0 0 0 0
+   7      12 loop12 90 0 1426 2 10 0 0 97 0 164 92 0 0 0 0
+   7      13 loop13 119 0 2082 7 0 0 0 0 0 52 0 0 0 0 0
+   7      14 loop14 119 0 2082 3 0 0 0 0 0 36 0 0 0 0 0
+
+3) cat /proc/devices 
+
+Вывод
+Character devices:
+  1 mem
+  4 /dev/vc/0
+  4 tty
+  4 ttyS
+  5 /dev/tty
+  5 /dev/console
+  5 /dev/ptmx
+  5 ttyprintk
+  6 lp
+  7 vcs
+ 10 misc
+ 13 input
+ 21 sg
+ 29 fb
+ 81 video4linux
+ 89 i2c
+ 99 ppdev
+108 ppp
+116 alsa
+128 ptm
+136 pts
+180 usb
+189 usb_device
+204 ttyMAX
+216 rfcomm
+226 drm
+239 media
+240 aux
+241 mei
+242 ttyDBC
+243 vfio
+244 bsg
+245 watchdog
+246 ptp
+247 pps
+248 cec
+249 rtc
+250 dax
+251 dimmctl
+252 ndctl
+253 tpm
+254 gpiochip
+
+Block devices:
+  7 loop
+  8 sd
+  9 md
+ 11 sr
+ 65 sd
+ 66 sd
+ 67 sd
+ 68 sd
+ 69 sd
+ 70 sd
+ 71 sd
+128 sd
+129 sd
+130 sd
+131 sd
+132 sd
+133 sd
+134 sd
+135 sd
+253 device-mapper
+254 mdp
+259 blkext
+
+4) dd if=/dev/zero of=./fs.img bs=1M count=10
+
+Вывод
+10+0 records in
+10+0 records out
+10485760 bytes (10 MB, 10 MiB) copied, 0,0106139 s, 988 MB/s
+
+5) losetup --find --show ./fs.img
+
+Вывод
+/dev/loop12
+
+6) losetup --list
+NAME SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE                            DIO LOG-SEC
+/dev/loop1
+             0      0         1  1 /var/lib/snapd/snaps/gtk-common-themes_1506.snap
+                                                                          0     512
+/dev/loop8
+             0      0         1  1 /var/lib/snapd/snaps/snap-store_467.snap
+                                                                          0     512
+/dev/loop6
+             0      0         1  1 /var/lib/snapd/snaps/snap-store_498.snap
+                                                                          0     512
+/dev/loop4
+             0      0         1  1 /var/lib/snapd/snaps/gnome-3-28-1804_145.snap
+                                                                          0     512
+/dev/loop11
+             0      0         1  1 /var/lib/snapd/snaps/snapd_8542.snap   0     512
+/dev/loop2
+             0      0         1  1 /var/lib/snapd/snaps/gnome-3-34-1804_60.snap
+                                                                          0     512
+/dev/loop0
+             0      0         1  1 /var/lib/snapd/snaps/gnome-3-34-1804_36.snap
+                                                                          0     512
+/dev/loop9
+             0      0         1  1 /var/lib/snapd/snaps/core18_1944.snap
+                                                                          0     512
+/dev/loop7
+             0      0         1  1 /var/lib/snapd/snaps/discord_119.snap
+                                                                          0     512
+/dev/loop5
+             0      0         1  1 /var/lib/snapd/snaps/gtk-common-themes_1514.snap
+                                                                          0     512
+/dev/loop12
+             0      0         0  0 /home/nikita/fs.img                    0     512
+/dev/loop3
+             0      0         1  1 /var/lib/snapd/snaps/core18_1932.snap
+                                                                          0     512
+/dev/loop10
+             0      0         1  1 /var/lib/snapd/snaps/snapd_10492.snap
+                                                                          0     512
+
+7) sudo mkfs -t ext4 /dev/loop12
+mke2fs 1.45.5 (07-Jan-2020)
+Creating filesystem with 2560 4k blocks and 2560 inodes
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (1024 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+8) blkid /dev/loop12
+/dev/loop0: UUID="f15ffab7-7e01-4491-b7c5-e739302ef8dc" BLOCK_SIZE="1024" TYPE="ext4"
+
+9) mount /dev/loop12 /mnt
+
+10) mount | grep /mnt
+/var/lib/snapd/snaps/gnome-3-34-1804_36.snap on /mnt type squashfs (ro,relatime)
+/dev/loop12 on /mnt type ext4 (rw,relatime)
+
+11) df -h /mnt
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/loop12     5,7M   28K  5,0M   1% /mnt
+
+12) df -hi /mnt
+Filesystem     Inodes IUsed IFree IUse% Mounted on
+/dev/loop12      2,5K    11  2,5K    1% /mnt
+
+13) umount /dev/loop0
+
+14) tune2fs -l /dev/loop12
+tune2fs 1.45.5 (07-Jan-2020)
+Filesystem volume name:   <none>
+Last mounted on:          <not available>
+Filesystem UUID:          f15ffab7-7e01-4491-b7c5-e739302ef8dc
+Filesystem magic number:  0xEF53
+Filesystem revision #:    1 (dynamic)
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype extent 64bit flex_bg sparse_super large_file huge_file dir_nlink extra_isize metadata_csum
+Filesystem flags:         signed_directory_hash 
+Default mount options:    user_xattr acl
+Filesystem state:         clean
+Errors behavior:          Continue
+Filesystem OS type:       Linux
+Inode count:              2560
+Block count:              2560
+Reserved block count:     128
+Free blocks:              1445
+Free inodes:              2549
+First block:              0
+Block size:               4096
+Fragment size:            4096
+Group descriptor size:    64
+Reserved GDT blocks:      1
+Blocks per group:         32768
+Fragments per group:      32768
+Inodes per group:         2560
+Inode blocks per group:   80
+Flex block group size:    16
+Filesystem created:       Fri Dec 18 15:26:52 2020
+Last mount time:          Fri Dec 18 15:35:45 2020
+Last write time:          Fri Dec 18 15:38:14 2020
+Mount count:              1
+Maximum mount count:      -1
+Last checked:             Fri Dec 18 15:26:52 2020
+Check interval:           0 (<none>)
+Lifetime writes:          365 kB
+Reserved blocks uid:      0 (user root)
+Reserved blocks gid:      0 (group root)
+First inode:              11
+Inode size:	          128
+Journal inode:            8
+Default directory hash:   half_md4
+Directory Hash Seed:      cf248901-a4ab-486f-bffd-4607d472666d
+Journal backup:           inode blocks
+Checksum type:            crc32c
+Checksum:                 0xcb0ea09f
+
+15) losetup --detach /dev/loop12
+
+16) losetup --list
+NAME SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE                            DIO LOG-SEC
+/dev/loop1
+             0      0         1  1 /var/lib/snapd/snaps/gtk-common-themes_1506.snap
+                                                                          0     512
+/dev/loop8
+             0      0         1  1 /var/lib/snapd/snaps/snap-store_467.snap
+                                                                          0     512
+/dev/loop6
+             0      0         1  1 /var/lib/snapd/snaps/snap-store_498.snap
+                                                                          0     512
+/dev/loop4
+             0      0         1  1 /var/lib/snapd/snaps/gnome-3-28-1804_145.snap
+                                                                          0     512
+/dev/loop11
+             0      0         1  1 /var/lib/snapd/snaps/snapd_8542.snap   0     512
+/dev/loop2
+             0      0         1  1 /var/lib/snapd/snaps/gnome-3-34-1804_60.snap
+                                                                          0     512
+/dev/loop0
+             0      0         1  1 /var/lib/snapd/snaps/gnome-3-34-1804_36.snap
+                                                                          0     512
+/dev/loop9
+             0      0         1  1 /var/lib/snapd/snaps/core18_1944.snap
+                                                                          0     512
+/dev/loop7
+             0      0         1  1 /var/lib/snapd/snaps/discord_119.snap
+                                                                          0     512
+/dev/loop5
+             0      0         1  1 /var/lib/snapd/snaps/gtk-common-themes_1514.snap
+                                                                          0     512
+/dev/loop3
+             0      0         1  1 /var/lib/snapd/snaps/core18_1932.snap
+                                                                          0     512
+/dev/loop10
+             0      0         1  1 /var/lib/snapd/snaps/snapd_10492.snap
+                                                                          0     512
+
+
+
+
+
